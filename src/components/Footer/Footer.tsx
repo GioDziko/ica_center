@@ -8,11 +8,7 @@ import logo from "../../assets/logo.png";
 
 export default function Footer() {
   return (
-    <Box
-      id="contact"
-      component="footer"
-      sx={{ bgcolor: "#1A1010", py: 6, scrollMarginTop: "64px" }}
-    >
+    <Box component="footer" sx={{ bgcolor: "#1A1010", py: 6 }}>
       <Container maxWidth="lg">
         <Grid container spacing={4}>
           <Grid size={{ xs: 12, md: 6 }}>
