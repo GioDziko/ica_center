@@ -36,7 +36,7 @@ A single-page landing site for ICA, a Georgian training center offering 8 subjec
 | `--color-text-muted` | `#6B6B6B` | Secondary/descriptive text |
 | `--color-gray-accent` | `#9E9E9E` | Decorative accents (mirrors column gray) |
 
-All tokens defined as CSS custom properties on `:root` for easy theming and future i18n/brand updates.
+All tokens defined in a MUI `createTheme()` config (`src/theme.ts`). Components consume colors via the MUI `sx` prop or `styled()` — no manual CSS custom properties needed.
 
 ---
 
@@ -47,6 +47,7 @@ All tokens defined as CSS custom properties on `:root` for easy theming and futu
 - **Body weight:** 400 (regular)
 - **Line height:** 1.6 for body, 1.2 for headings
 - Font loaded via `<link>` in `index.html` with `display=swap` for performance
+- Font registered in the MUI theme under `typography.fontFamily` so all MUI `Typography` components inherit it automatically
 
 ---
 
@@ -72,78 +73,81 @@ All tokens defined as CSS custom properties on `:root` for easy theming and futu
 
 ### 6.1 Navbar
 
-- **Position:** Sticky, `top: 0`, `z-index: 100`
-- **Background:** `--color-primary` (`#8B1818`)
-- **Layout:** flex row, space-between
-- **Left:** Logo — column image (32px height) + "ICA" or Georgian name text in white
-- **Right:** Phone number as a white outlined button (`<a href="tel:+995XXXXXXXXX">`)
-- **On scroll:** adds `box-shadow` to indicate floating above content
+- **MUI components:** `AppBar` (position="sticky"), `Toolbar`, `Button`
+- **Background:** `primary.main` (`#8B1818`) via MUI theme — set `color="primary"` on `AppBar`
+- **Layout:** `Toolbar` with `sx={{ justifyContent: 'space-between' }}`
+- **Left:** Logo image (`src/assets/logo.png`, ~40px height) — the PNG already contains the column graphic and Georgian text, rendered as `<img>` with alt="ICA"
+- **Right:** Phone number as a MUI `Button` variant="outlined" color="inherit" wrapping an `<a href="tel:+995XXXXXXXXX">` — white outlined style on crimson bg
+- **On scroll:** MUI `AppBar` `elevation` prop toggled via scroll listener (0 at top, 4 on scroll)
 - **Mobile:** logo left, phone right — no hamburger (only 2 items, fits at all sizes)
 
 ### 6.2 Hero Section
 
+- **MUI components:** `Box`, `Container`, `Typography`, `Button`
 - **Height:** `min-height: 90vh`
-- **Background:** `--color-primary` (`#8B1818`)
-- **Layout:** centered column (flexbox), vertically and horizontally centered
+- **Background:** `primary.main` (`#8B1818`) via `sx={{ bgcolor: 'primary.main' }}`
+- **Layout:** `Box` with `display: flex`, `flexDirection: column`, `alignItems: center`, `justifyContent: center`
 - **Content (top to bottom):**
-  1. Logo column graphic (200px height)
-  2. Bold Georgian tagline headline — e.g. "შენი წარმატება იწყება აქ"
-  3. 1–2 sentence Georgian description of the center
-  4. Phone CTA button — white background, crimson text, rounded, prominent
-  5. Scroll-down chevron indicator at bottom of section
-- **Text color:** white (`#FFFFFF`)
-- **CTA button hover:** slight scale transform + shadow
+  1. Logo column graphic (200px height) as `<img>`
+  2. MUI `Typography` variant="h2" — bold Georgian tagline, e.g. "შენი წარმატება იწყება აქ"
+  3. MUI `Typography` variant="body1" — 1–2 sentence Georgian description
+  4. MUI `Button` variant="contained" color="secondary" (white bg, crimson text) wrapping `<a href="tel:...">` — prominent CTA
+  5. Scroll-down chevron (`KeyboardArrowDown` from `@mui/icons-material`) at bottom
+- **Text color:** `color: 'white'` via sx
+- **CTA button hover:** MUI default ripple + `sx` scale transform
 
 ### 6.3 Services Section
 
-- **Background:** `--color-bg` (`#F8F6F2`)
-- **Padding:** generous vertical padding (80px top/bottom)
+- **MUI components:** `Box`, `Container`, `Typography`, `Grid`, `Card`, `CardContent`
+- **Background:** `#F8F6F2` via `sx={{ bgcolor: '#F8F6F2' }}`
+- **Padding:** `py: 10` (80px top/bottom via MUI spacing)
 - **Section header (centered):**
-  - Georgian title — e.g. "ჩვენი კურსები"
-  - Thin crimson underline accent beneath the title
-  - Short Georgian subtitle
+  - MUI `Typography` variant="h3" — Georgian title, e.g. "ჩვენი კურსები"
+  - Thin crimson underline accent beneath: a styled `Box` with `width: 60px`, `height: 3px`, `bgcolor: 'primary.main'`, centered
+  - MUI `Typography` variant="subtitle1" color="text.secondary" — short Georgian subtitle
 - **Subject card grid:**
-  - 4 columns desktop (≥1024px), 2 columns tablet (≥640px), 1 column mobile
-  - Gap: 24px
-- **Each SubjectCard contains:**
-  - Subject icon (Lucide React icon, 32px, crimson color)
-  - Subject name in Georgian (bold, `--color-text`)
-  - Schedule — days and time (e.g. "ორშ, ოთხ · 16:00–18:00"), muted text
-  - Price (e.g. "150 ₾ / თვე"), semi-bold
-  - Thin crimson top border accent on card
-- **Card styles:** white bg, 8px border-radius, subtle box-shadow, crimson `3px` top border
-- **Card hover:** `translateY(-4px)` + stronger shadow (smooth transition 200ms)
+  - MUI `Grid` container, spacing={3}
+  - `Grid` item `xs={12}` `sm={6}` `md={3}` — 1 / 2 / 4 columns at mobile / tablet / desktop
+- **Each SubjectCard (`Card` component) contains:**
+  - MUI icon from `@mui/icons-material` (32px, `color: 'primary'`)
+  - MUI `Typography` variant="h6" — subject name in Georgian (bold)
+  - MUI `Typography` variant="body2" color="text.secondary" — schedule
+  - MUI `Typography` variant="body2" fontWeight="600" — price
+- **Card styles:** MUI `Card` with `sx={{ borderTop: '3px solid', borderColor: 'primary.main', borderRadius: 2 }}`
+- **Card hover:** `sx` with `transition`, `'&:hover': { transform: 'translateY(-4px)', boxShadow: 6 }`
 
 **Subject list:**
 
-| Georgian | English | Icon (Lucide) |
+| Georgian | English | Icon (`@mui/icons-material`) |
 |---|---|---|
-| ისტორია | History | `BookOpen` |
-| ინგლისური | English | `Globe` |
-| ქართული | Georgian | `PenLine` |
-| მათემატიკა | Mathematics | `Calculator` |
-| სამოქალაქო განათლება | Civics | `Landmark` |
+| ისტორია | History | `MenuBook` |
+| ინგლისური | English | `Language` |
+| ქართული | Georgian | `Edit` |
+| მათემატიკა | Mathematics | `Calculate` |
+| სამოქალაქო განათლება | Civics | `AccountBalance` |
 | გეოგრაფია | Geography | `Map` |
-| ფიზიკა | Physics | `Atom` |
-| ქიმია | Chemistry | `FlaskConical` |
+| ფიზიკა | Physics | `Science` |
+| ქიმია | Chemistry | `Biotech` |
 
 *Note: Schedule and price values are placeholder content — to be filled in by the client before launch.*
 
 ### 6.4 CTA Strip
 
-- **Background:** `--color-primary` (`#8B1818`)
-- **Layout:** centered column
-- **Content:** Georgian heading (e.g. "დაგვიკავშირდი"), phone number as a large white outlined button
+- **MUI components:** `Box`, `Container`, `Typography`, `Button`
+- **Background:** `primary.main` via `sx={{ bgcolor: 'primary.main' }}`
+- **Layout:** `Box` flex column, centered
+- **Content:** MUI `Typography` variant="h4" color="white" (e.g. "დაგვიკავშირდი") + MUI `Button` variant="outlined" color="inherit" size="large" wrapping `<a href="tel:...">`
 - **Purpose:** Reinforces the call-to-action after the user has reviewed all services
 
 ### 6.5 Footer
 
-- **Background:** `--color-footer` (`#1A1010`)
-- **Layout:** 2 columns on desktop, stacked on mobile
-- **Left column:** Small logo + one-line Georgian description of the center
-- **Right column:** Phone number (clickable), address (placeholder), social links (placeholder for future)
-- **Bottom bar:** Copyright — "© 2026 ICA. ყველა უფლება დაცულია"
-- **Text color:** white / light gray
+- **MUI components:** `Box`, `Container`, `Grid`, `Typography`
+- **Background:** `#1A1010` via `sx={{ bgcolor: '#1A1010' }}`
+- **Layout:** MUI `Grid` container — 2 columns on desktop (`md={6}`), stacked on mobile (`xs={12}`)
+- **Left column:** Small logo `<img>` (32px) + MUI `Typography` variant="body2" — one-line Georgian description
+- **Right column:** Phone as `<a href="tel:...">` styled with MUI `Typography`, address placeholder, social icon placeholders
+- **Bottom bar:** MUI `Divider` + `Typography` variant="caption" — "© 2026 ICA. ყველა უფლება დაცულია"
+- **Text color:** `color: 'white'` / `color: 'grey.400'` via sx
 
 ---
 
@@ -165,30 +169,27 @@ src/
   components/
     Navbar/
       Navbar.tsx
-      Navbar.css
     Hero/
       Hero.tsx
-      Hero.css
     ServicesSection/
       ServicesSection.tsx
-      ServicesSection.css
       SubjectCard.tsx
     CTAStrip/
       CTAStrip.tsx
-      CTAStrip.css
     Footer/
       Footer.tsx
-      Footer.css
   data/
-    subjects.ts       ← subject list, icons, schedule, price data
+    subjects.ts       ← subject list, MUI icon components, schedule, price data
+  theme.ts            ← MUI createTheme() config (palette, typography, components)
   styles/
-    variables.css     ← CSS custom properties (colors, fonts, spacing)
-    global.css        ← reset, base styles, font import
+    global.css        ← minimal: font import, html scroll-behavior: smooth, body margin reset
   assets/
     logo.png          ← the ICA logo/column image
-  App.tsx             ← composes all sections
+  App.tsx             ← wraps everything in MUI ThemeProvider + CssBaseline, composes sections
   main.tsx
 ```
+
+**No per-component CSS files** — all styling is done via the MUI `sx` prop or `styled()`. Plain CSS is limited to the single `global.css` for font import and scroll behavior.
 
 **Data approach:** Subject data lives in `src/data/subjects.ts` as a typed array. This keeps content separate from components and makes it easy to update schedules/prices without touching component code.
 
@@ -205,10 +206,12 @@ All user-facing strings are defined in one place (`subjects.ts` for card content
 
 ## 10. Dependencies to Add
 
-- `lucide-react` — subject icons (lightweight, tree-shakeable)
+- `@mui/material` — core MUI component library
+- `@mui/icons-material` — MUI icon set (subject icons, chevron, etc.)
+- `@emotion/react` + `@emotion/styled` — required MUI styling engine
 - Noto Sans Georgian via Google Fonts CDN in `index.html`
 
-No other new dependencies required. No CSS framework — plain CSS with custom properties keeps bundle lean and avoids overriding issues with Georgian font rendering.
+No additional CSS framework. MUI covers all layout and component styling needs. `global.css` is minimal (font import + scroll reset only).
 
 ---
 
