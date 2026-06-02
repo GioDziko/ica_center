@@ -12,30 +12,31 @@
 
 ## File Map
 
-| File | Action | Purpose |
-|---|---|---|
-| `src/theme.ts` | Create | MUI `createTheme`: crimson palette, Noto Sans Georgian typography |
-| `src/config.ts` | Create | Central contact config: phone number constant |
-| `src/data/subjects.ts` | Create | 8 subject definitions: id, name, schedule, price, icon |
-| `src/styles/global.css` | Create | Font import, `scroll-behavior: smooth`, bounce keyframe, body reset |
-| `src/assets/logo.png` | Create (manual) | ICA logo image (column graphic + Georgian text) |
-| `src/components/Navbar/Navbar.tsx` | Create | Sticky `AppBar`: logo left, phone CTA right |
-| `src/components/Hero/Hero.tsx` | Create | Full-height crimson hero: logo, tagline, description, phone CTA, chevron |
-| `src/components/ServicesSection/SubjectCard.tsx` | Create | Card: icon, subject name, schedule, price |
-| `src/components/ServicesSection/ServicesSection.tsx` | Create | Section header + `Grid2` of 8 `SubjectCard`s |
-| `src/components/CTAStrip/CTAStrip.tsx` | Create | Crimson contact band |
-| `src/components/Footer/Footer.tsx` | Create | Dark footer: logo, description, phone, copyright |
-| `src/test/setup.ts` | Create | `@testing-library/jest-dom` setup for Vitest |
-| `src/App.tsx` | Modify | Compose all sections under `ThemeProvider` + `CssBaseline` |
-| `src/main.tsx` | Modify | Swap `./index.css` import for `./styles/global.css` |
-| `index.html` | Modify | Fix lang, title, add Noto Sans Georgian font link |
-| `vite.config.ts` | Modify | Add Vitest config block |
+| File                                                 | Action          | Purpose                                                                  |
+| ---------------------------------------------------- | --------------- | ------------------------------------------------------------------------ |
+| `src/theme.ts`                                       | Create          | MUI `createTheme`: crimson palette, Noto Sans Georgian typography        |
+| `src/config.ts`                                      | Create          | Central contact config: phone number constant                            |
+| `src/data/subjects.ts`                               | Create          | 8 subject definitions: id, name, schedule, price, icon                   |
+| `src/styles/global.css`                              | Create          | Font import, `scroll-behavior: smooth`, bounce keyframe, body reset      |
+| `src/assets/logo.png`                                | Create (manual) | ICA logo image (column graphic + Georgian text)                          |
+| `src/components/Navbar/Navbar.tsx`                   | Create          | Sticky `AppBar`: logo left, phone CTA right                              |
+| `src/components/Hero/Hero.tsx`                       | Create          | Full-height crimson hero: logo, tagline, description, phone CTA, chevron |
+| `src/components/ServicesSection/SubjectCard.tsx`     | Create          | Card: icon, subject name, schedule, price                                |
+| `src/components/ServicesSection/ServicesSection.tsx` | Create          | Section header + `Grid2` of 8 `SubjectCard`s                             |
+| `src/components/CTAStrip/CTAStrip.tsx`               | Create          | Crimson contact band                                                     |
+| `src/components/Footer/Footer.tsx`                   | Create          | Dark footer: logo, description, phone, copyright                         |
+| `src/test/setup.ts`                                  | Create          | `@testing-library/jest-dom` setup for Vitest                             |
+| `src/App.tsx`                                        | Modify          | Compose all sections under `ThemeProvider` + `CssBaseline`               |
+| `src/main.tsx`                                       | Modify          | Swap `./index.css` import for `./styles/global.css`                      |
+| `index.html`                                         | Modify          | Fix lang, title, add Noto Sans Georgian font link                        |
+| `vite.config.ts`                                     | Modify          | Add Vitest config block                                                  |
 
 ---
 
 ### Task 1: Install MUI and Emotion
 
 **Files:**
+
 - Modify: `package.json` (via npm install)
 
 - [ ] **Step 1: Install dependencies**
@@ -59,6 +60,7 @@ git commit -m "chore: install MUI v6 and Emotion"
 ### Task 2: Install and Configure Vitest
 
 **Files:**
+
 - Modify: `vite.config.ts`
 - Create: `src/test/setup.ts`
 
@@ -75,10 +77,10 @@ Expected: four packages added to `devDependencies`.
 Create `src/test/vitest-setup.test.ts`:
 
 ```typescript
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from "vitest";
 
-describe('vitest setup', () => {
-  it('runs', () => {
+describe("vitest setup", () => {
+  it("runs", () => {
     expect(true).toBe(true);
   });
 });
@@ -95,22 +97,22 @@ Expected: error about missing test config or unknown test runner.
 - [ ] **Step 4: Update `vite.config.ts`**
 
 ```typescript
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: 'jsdom',
-    setupFiles: ['./src/test/setup.ts'],
+    environment: "jsdom",
+    setupFiles: ["./src/test/setup.ts"],
   },
-})
+});
 ```
 
 - [ ] **Step 5: Create `src/test/setup.ts`**
 
 ```typescript
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 ```
 
 - [ ] **Step 6: Run — expect PASS**
@@ -120,6 +122,7 @@ npx vitest run --reporter=verbose
 ```
 
 Expected:
+
 ```
 ✓ src/test/vitest-setup.test.ts > vitest setup > runs
 Test Files  1 passed (1)
@@ -137,6 +140,7 @@ git commit -m "chore: configure Vitest with jsdom and Testing Library"
 ### Task 3: MUI Theme
 
 **Files:**
+
 - Create: `src/theme.ts`
 - Create: `src/theme.test.ts`
 
@@ -145,20 +149,20 @@ git commit -m "chore: configure Vitest with jsdom and Testing Library"
 Create `src/theme.test.ts`:
 
 ```typescript
-import { describe, it, expect } from 'vitest';
-import theme from './theme';
+import { describe, it, expect } from "vitest";
+import theme from "./theme";
 
-describe('MUI theme', () => {
-  it('sets primary color to crimson', () => {
-    expect(theme.palette.primary.main).toBe('#8B1818');
+describe("MUI theme", () => {
+  it("sets primary color to crimson", () => {
+    expect(theme.palette.primary.main).toBe("#8B1818");
   });
 
-  it('sets primary dark color', () => {
-    expect(theme.palette.primary.dark).toBe('#6B1010');
+  it("sets primary dark color", () => {
+    expect(theme.palette.primary.dark).toBe("#6B1010");
   });
 
-  it('uses Noto Sans Georgian font', () => {
-    expect(theme.typography.fontFamily).toContain('Noto Sans Georgian');
+  it("uses Noto Sans Georgian font", () => {
+    expect(theme.typography.fontFamily).toContain("Noto Sans Georgian");
   });
 });
 ```
@@ -174,13 +178,13 @@ Expected: FAIL — `Cannot find module './theme'`
 - [ ] **Step 3: Create `src/theme.ts`**
 
 ```typescript
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#8B1818',
-      dark: '#6B1010',
+      main: "#8B1818",
+      dark: "#6B1010",
     },
   },
   typography: {
@@ -197,7 +201,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 8,
-          textTransform: 'none' as const,
+          textTransform: "none" as const,
           fontWeight: 600,
         },
       },
@@ -220,6 +224,7 @@ npx vitest run src/theme.test.ts --reporter=verbose
 ```
 
 Expected:
+
 ```
 ✓ src/theme.test.ts > MUI theme > sets primary color to crimson
 ✓ src/theme.test.ts > MUI theme > sets primary dark color
@@ -239,6 +244,7 @@ git commit -m "feat: add MUI theme with crimson palette and Georgian font"
 ### Task 4: Global Styles and Font
 
 **Files:**
+
 - Modify: `index.html`
 - Create: `src/styles/global.css`
 - Modify: `src/main.tsx`
@@ -286,8 +292,13 @@ body {
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(8px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
 }
 ```
 
@@ -318,13 +329,14 @@ git commit -m "feat: add global styles and Noto Sans Georgian font"
 ### Task 5: Contact Config
 
 **Files:**
+
 - Create: `src/config.ts`
 
 - [ ] **Step 1: Create `src/config.ts`**
 
 ```typescript
 /** Replace with the actual ICA phone number before launch */
-export const PHONE = '+995599000000';
+export const PHONE = "+995599000000";
 ```
 
 - [ ] **Step 2: Commit**
@@ -339,6 +351,7 @@ git commit -m "feat: add contact config with phone number placeholder"
 ### Task 6: Subject Data
 
 **Files:**
+
 - Create: `src/data/subjects.ts`
 - Create: `src/data/subjects.test.ts`
 
@@ -347,15 +360,15 @@ git commit -m "feat: add contact config with phone number placeholder"
 Create `src/data/subjects.test.ts`:
 
 ```typescript
-import { describe, it, expect } from 'vitest';
-import { subjects } from './subjects';
+import { describe, it, expect } from "vitest";
+import { subjects } from "./subjects";
 
-describe('subjects data', () => {
-  it('exports exactly 8 subjects', () => {
+describe("subjects data", () => {
+  it("exports exactly 8 subjects", () => {
     expect(subjects).toHaveLength(8);
   });
 
-  it('each subject has all required fields', () => {
+  it("each subject has all required fields", () => {
     for (const s of subjects) {
       expect(s.id, `${s.id} missing id`).toBeTruthy();
       expect(s.name, `${s.id} missing name`).toBeTruthy();
@@ -365,7 +378,7 @@ describe('subjects data', () => {
     }
   });
 
-  it('all subject ids are unique', () => {
+  it("all subject ids are unique", () => {
     const ids = subjects.map((s) => s.id);
     expect(new Set(ids).size).toBe(subjects.length);
   });
@@ -383,16 +396,16 @@ Expected: FAIL — `Cannot find module './subjects'`
 - [ ] **Step 3: Create `src/data/subjects.ts`**
 
 ```typescript
-import type { ComponentType } from 'react';
-import type { SvgIconProps } from '@mui/material';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import LanguageIcon from '@mui/icons-material/Language';
-import EditIcon from '@mui/icons-material/Edit';
-import CalculateIcon from '@mui/icons-material/Calculate';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import MapIcon from '@mui/icons-material/Map';
-import ScienceIcon from '@mui/icons-material/Science';
-import BiotechIcon from '@mui/icons-material/Biotech';
+import type { ComponentType } from "react";
+import type { SvgIconProps } from "@mui/material";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import LanguageIcon from "@mui/icons-material/Language";
+import EditIcon from "@mui/icons-material/Edit";
+import CalculateIcon from "@mui/icons-material/Calculate";
+import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import MapIcon from "@mui/icons-material/Map";
+import ScienceIcon from "@mui/icons-material/Science";
+import BiotechIcon from "@mui/icons-material/Biotech";
 
 export interface Subject {
   id: string;
@@ -404,14 +417,62 @@ export interface Subject {
 
 /** Placeholder schedules and prices — update before launch */
 export const subjects: Subject[] = [
-  { id: 'history',   name: 'ისტორია',            schedule: 'ორშ, ოთხ · 16:00–18:00', price: '150 ₾ / თვე', Icon: MenuBookIcon },
-  { id: 'english',   name: 'ინგლისური',           schedule: 'სამ, ხუთ · 16:00–18:00', price: '150 ₾ / თვე', Icon: LanguageIcon },
-  { id: 'georgian',  name: 'ქართული',             schedule: 'ორშ, ოთხ · 14:00–16:00', price: '150 ₾ / თვე', Icon: EditIcon },
-  { id: 'math',      name: 'მათემატიკა',           schedule: 'სამ, ხუთ · 14:00–16:00', price: '150 ₾ / თვე', Icon: CalculateIcon },
-  { id: 'civics',    name: 'სამოქალაქო განათლება', schedule: 'პარ · 14:00–17:00',       price: '150 ₾ / თვე', Icon: AccountBalanceIcon },
-  { id: 'geography', name: 'გეოგრაფია',            schedule: 'ორშ, ოთხ · 10:00–12:00', price: '150 ₾ / თვე', Icon: MapIcon },
-  { id: 'physics',   name: 'ფიზიკა',              schedule: 'სამ, ხუთ · 10:00–12:00', price: '150 ₾ / თვე', Icon: ScienceIcon },
-  { id: 'chemistry', name: 'ქიმია',               schedule: 'პარ · 10:00–13:00',       price: '150 ₾ / თვე', Icon: BiotechIcon },
+  {
+    id: "history",
+    name: "ისტორია",
+    schedule: "ორშ, ოთხ · 16:00–18:00",
+    price: "150 ₾ / თვე",
+    Icon: MenuBookIcon,
+  },
+  {
+    id: "english",
+    name: "ინგლისური",
+    schedule: "სამ, ხუთ · 16:00–18:00",
+    price: "150 ₾ / თვე",
+    Icon: LanguageIcon,
+  },
+  {
+    id: "georgian",
+    name: "ქართული",
+    schedule: "ორშ, ოთხ · 14:00–16:00",
+    price: "150 ₾ / თვე",
+    Icon: EditIcon,
+  },
+  {
+    id: "math",
+    name: "მათემატიკა",
+    schedule: "სამ, ხუთ · 14:00–16:00",
+    price: "150 ₾ / თვე",
+    Icon: CalculateIcon,
+  },
+  {
+    id: "civics",
+    name: "სამოქალაქო განათლება",
+    schedule: "პარ · 14:00–17:00",
+    price: "150 ₾ / თვე",
+    Icon: AccountBalanceIcon,
+  },
+  {
+    id: "geography",
+    name: "გეოგრაფია",
+    schedule: "ორშ, ოთხ · 10:00–12:00",
+    price: "150 ₾ / თვე",
+    Icon: MapIcon,
+  },
+  {
+    id: "physics",
+    name: "ფიზიკა",
+    schedule: "სამ, ხუთ · 10:00–12:00",
+    price: "150 ₾ / თვე",
+    Icon: ScienceIcon,
+  },
+  {
+    id: "chemistry",
+    name: "ქიმია",
+    schedule: "პარ · 10:00–13:00",
+    price: "150 ₾ / თვე",
+    Icon: BiotechIcon,
+  },
 ];
 ```
 
@@ -422,6 +483,7 @@ npx vitest run src/data/subjects.test.ts --reporter=verbose
 ```
 
 Expected:
+
 ```
 ✓ src/data/subjects.test.ts > subjects data > exports exactly 8 subjects
 ✓ src/data/subjects.test.ts > subjects data > each subject has all required fields
@@ -441,11 +503,13 @@ git commit -m "feat: add subject data with 8 courses"
 ### Task 7: Logo Asset
 
 **Files:**
+
 - Create: `src/assets/logo.png`
 
 - [ ] **Step 1: Save the ICA logo**
 
 Copy the ICA logo image (crimson background, Ionic column graphic, Georgian text) to:
+
 ```
 /home/giorgi_dzirkvelishvili/ica/project/ica_project/src/assets/logo.png
 ```
@@ -464,6 +528,7 @@ git commit -m "feat: add ICA logo asset"
 ### Task 8: SubjectCard Component
 
 **Files:**
+
 - Create: `src/components/ServicesSection/SubjectCard.tsx`
 - Create: `src/components/ServicesSection/SubjectCard.test.tsx`
 
@@ -576,6 +641,7 @@ npx vitest run src/components/ServicesSection/SubjectCard.test.tsx --reporter=ve
 ```
 
 Expected:
+
 ```
 ✓ SubjectCard > renders the subject name
 ✓ SubjectCard > renders the schedule
@@ -595,6 +661,7 @@ git commit -m "feat: add SubjectCard component"
 ### Task 9: Navbar Component
 
 **Files:**
+
 - Create: `src/components/Navbar/Navbar.tsx`
 - Create: `src/components/Navbar/Navbar.test.tsx`
 
@@ -692,6 +759,7 @@ npx vitest run src/components/Navbar/Navbar.test.tsx --reporter=verbose
 ```
 
 Expected:
+
 ```
 ✓ Navbar > renders the ICA logo image
 ✓ Navbar > renders a tel: phone link
@@ -710,6 +778,7 @@ git commit -m "feat: add Navbar component"
 ### Task 10: Hero Component
 
 **Files:**
+
 - Create: `src/components/Hero/Hero.tsx`
 - Create: `src/components/Hero/Hero.test.tsx`
 
@@ -843,6 +912,7 @@ npx vitest run src/components/Hero/Hero.test.tsx --reporter=verbose
 ```
 
 Expected:
+
 ```
 ✓ Hero > renders the logo image
 ✓ Hero > renders the tagline
@@ -862,6 +932,7 @@ git commit -m "feat: add Hero section component"
 ### Task 11: ServicesSection Component
 
 **Files:**
+
 - Create: `src/components/ServicesSection/ServicesSection.tsx`
 - Create: `src/components/ServicesSection/ServicesSection.test.tsx`
 
@@ -964,6 +1035,7 @@ npx vitest run src/components/ServicesSection/ServicesSection.test.tsx --reporte
 ```
 
 Expected:
+
 ```
 ✓ ServicesSection > renders the section title
 ✓ ServicesSection > renders all 8 subject names
@@ -982,6 +1054,7 @@ git commit -m "feat: add ServicesSection with subject grid"
 ### Task 12: CTAStrip Component
 
 **Files:**
+
 - Create: `src/components/CTAStrip/CTAStrip.tsx`
 - Create: `src/components/CTAStrip/CTAStrip.test.tsx`
 
@@ -1069,6 +1142,7 @@ npx vitest run src/components/CTAStrip/CTAStrip.test.tsx --reporter=verbose
 ```
 
 Expected:
+
 ```
 ✓ CTAStrip > renders the contact heading
 ✓ CTAStrip > renders a tel: phone link
@@ -1087,6 +1161,7 @@ git commit -m "feat: add CTAStrip component"
 ### Task 13: Footer Component
 
 **Files:**
+
 - Create: `src/components/Footer/Footer.tsx`
 - Create: `src/components/Footer/Footer.test.tsx`
 
@@ -1192,6 +1267,7 @@ npx vitest run src/components/Footer/Footer.test.tsx --reporter=verbose
 ```
 
 Expected:
+
 ```
 ✓ Footer > renders the copyright text
 ✓ Footer > renders a tel: phone link
@@ -1211,6 +1287,7 @@ git commit -m "feat: add Footer component"
 ### Task 14: Compose App.tsx
 
 **Files:**
+
 - Modify: `src/App.tsx`
 
 - [ ] **Step 1: Replace `src/App.tsx`**
@@ -1281,6 +1358,7 @@ Expected: dev server starts at `http://localhost:5173` (or port shown in termina
 - [ ] **Step 2: Verify page visually in browser**
 
 Open the URL. Confirm:
+
 - Sticky crimson navbar with logo image and phone button visible
 - Hero section fills ~90% of viewport: crimson background, logo graphic, Georgian tagline, phone CTA button, animated chevron at bottom
 - Services section on off-white background: 8 subject cards in a responsive grid, each showing icon + name + schedule + price
@@ -1290,6 +1368,7 @@ Open the URL. Confirm:
 - [ ] **Step 3: Check mobile layout**
 
 Open browser DevTools → toggle device toolbar → set width to 375px. Confirm:
+
 - Subject cards stack to 1 column
 - Navbar logo and phone button fit without overflow
 - Hero text is readable at small size
@@ -1298,9 +1377,9 @@ Open browser DevTools → toggle device toolbar → set width to 375px. Confirm:
 
 When ready to go live, update these files:
 
-| File | What to change |
-|---|---|
-| `src/config.ts` | Replace `+995599000000` with the real phone number |
-| `src/data/subjects.ts` | Replace placeholder schedules and prices with actual values |
-| `src/components/Hero/Hero.tsx` | Update tagline and description to final approved copy |
-| `src/components/Footer/Footer.tsx` | Replace `მისამართი: —` with actual address |
+| File                               | What to change                                              |
+| ---------------------------------- | ----------------------------------------------------------- |
+| `src/config.ts`                    | Replace `+995599000000` with the real phone number          |
+| `src/data/subjects.ts`             | Replace placeholder schedules and prices with actual values |
+| `src/components/Hero/Hero.tsx`     | Update tagline and description to final approved copy       |
+| `src/components/Footer/Footer.tsx` | Replace `მისამართი: —` with actual address                  |

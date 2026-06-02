@@ -1,10 +1,10 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#8B1818',
-      dark: '#6B1010',
+      main: "#8B1818",
+      dark: "#6B1010",
     },
   },
   typography: {
@@ -21,7 +21,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 8,
-          textTransform: 'none' as const,
+          textTransform: "none" as const,
           fontWeight: 600,
         },
       },

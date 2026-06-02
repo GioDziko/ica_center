@@ -1,15 +1,19 @@
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid2';
-import SubjectCard from './SubjectCard';
-import { subjects } from '../../data/subjects';
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid2";
+import SubjectCard from "./SubjectCard";
+import { subjects } from "../../data/subjects";
 
 export default function ServicesSection() {
   return (
-    <Box id="services" component="section" sx={{ bgcolor: '#F8F6F2', py: 10, scrollMarginTop: '64px' }}>
+    <Box
+      id="services"
+      component="section"
+      sx={{ bgcolor: "#F8F6F2", py: 10, scrollMarginTop: "64px" }}
+    >
       <Container maxWidth="lg">
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
+        <Box sx={{ textAlign: "center", mb: 6 }}>
           <Typography variant="h3" gutterBottom>
             ჩვენი კურსები
           </Typography>
@@ -17,8 +21,8 @@ export default function ServicesSection() {
             sx={{
               width: 60,
               height: 3,
-              bgcolor: 'primary.main',
-              mx: 'auto',
+              bgcolor: "primary.main",
+              mx: "auto",
               mb: 2,
             }}
           />

@@ -25,16 +25,16 @@ A single-page landing site for ICA, a Georgian training center offering 8 subjec
 
 ## 3. Color System
 
-| Token | Value | Usage |
-|---|---|---|
-| `--color-primary` | `#8B1818` | Hero bg, navbar bg, CTA strip bg, buttons |
-| `--color-primary-dark` | `#6B1010` | Hover states, shadows |
-| `--color-bg` | `#F8F6F2` | Services section background (warm off-white) |
-| `--color-surface` | `#FFFFFF` | Subject cards |
-| `--color-footer` | `#1A1010` | Footer background |
-| `--color-text` | `#1A1A1A` | Primary body text |
-| `--color-text-muted` | `#6B6B6B` | Secondary/descriptive text |
-| `--color-gray-accent` | `#9E9E9E` | Decorative accents (mirrors column gray) |
+| Token                  | Value     | Usage                                        |
+| ---------------------- | --------- | -------------------------------------------- |
+| `--color-primary`      | `#8B1818` | Hero bg, navbar bg, CTA strip bg, buttons    |
+| `--color-primary-dark` | `#6B1010` | Hover states, shadows                        |
+| `--color-bg`           | `#F8F6F2` | Services section background (warm off-white) |
+| `--color-surface`      | `#FFFFFF` | Subject cards                                |
+| `--color-footer`       | `#1A1010` | Footer background                            |
+| `--color-text`         | `#1A1A1A` | Primary body text                            |
+| `--color-text-muted`   | `#6B6B6B` | Secondary/descriptive text                   |
+| `--color-gray-accent`  | `#9E9E9E` | Decorative accents (mirrors column gray)     |
 
 All tokens defined in a MUI `createTheme()` config (`src/theme.ts`). Components consume colors via the MUI `sx` prop or `styled()` — no manual CSS custom properties needed.
 
@@ -118,18 +118,18 @@ All tokens defined in a MUI `createTheme()` config (`src/theme.ts`). Components 
 
 **Subject list:**
 
-| Georgian | English | Icon (`@mui/icons-material`) |
-|---|---|---|
-| ისტორია | History | `MenuBook` |
-| ინგლისური | English | `Language` |
-| ქართული | Georgian | `Edit` |
-| მათემატიკა | Mathematics | `Calculate` |
-| სამოქალაქო განათლება | Civics | `AccountBalance` |
-| გეოგრაფია | Geography | `Map` |
-| ფიზიკა | Physics | `Science` |
-| ქიმია | Chemistry | `Biotech` |
+| Georgian             | English     | Icon (`@mui/icons-material`) |
+| -------------------- | ----------- | ---------------------------- |
+| ისტორია              | History     | `MenuBook`                   |
+| ინგლისური            | English     | `Language`                   |
+| ქართული              | Georgian    | `Edit`                       |
+| მათემატიკა           | Mathematics | `Calculate`                  |
+| სამოქალაქო განათლება | Civics      | `AccountBalance`             |
+| გეოგრაფია            | Geography   | `Map`                        |
+| ფიზიკა               | Physics     | `Science`                    |
+| ქიმია                | Chemistry   | `Biotech`                    |
 
-*Note: Schedule and price values are placeholder content — to be filled in by the client before launch.*
+_Note: Schedule and price values are placeholder content — to be filled in by the client before launch._
 
 ### 6.4 CTA Strip
 
@@ -153,12 +153,12 @@ All tokens defined in a MUI `createTheme()` config (`src/theme.ts`). Components 
 
 ## 7. Responsive Breakpoints
 
-| Name | Min-width | Notes |
-|---|---|---|
-| Mobile | 0px | 1-column grid, stacked layouts |
-| Tablet | 640px | 2-column subject grid |
-| Desktop | 1024px | 4-column subject grid, 2-column footer |
-| Wide | 1280px | Max content width: 1200px, centered |
+| Name    | Min-width | Notes                                  |
+| ------- | --------- | -------------------------------------- |
+| Mobile  | 0px       | 1-column grid, stacked layouts         |
+| Tablet  | 640px     | 2-column subject grid                  |
+| Desktop | 1024px    | 4-column subject grid, 2-column footer |
+| Wide    | 1280px    | Max content width: 1200px, centered    |
 
 ---
 
@@ -198,6 +198,7 @@ src/
 ## 9. i18n Readiness
 
 All user-facing strings are defined in one place (`subjects.ts` for card content, and inline in each component for section headings). When English support is added:
+
 - Wrap strings in a simple i18n context/hook
 - No structural changes to components needed
 - Language toggle can be added to the Navbar
