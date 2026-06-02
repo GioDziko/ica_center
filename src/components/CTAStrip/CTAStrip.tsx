@@ -10,7 +10,11 @@ const MAP_EMBED_URL =
 
 export default function CTAStrip() {
   return (
-    <Box id="contact" component="section" sx={{ bgcolor: 'primary.main', py: 8, scrollMarginTop: '64px' }}>
+    <Box
+      id="contact"
+      component="section"
+      sx={{ bgcolor: "primary.main", py: 8, scrollMarginTop: "64px" }}
+    >
       <Container maxWidth="lg">
         <Grid container spacing={4} alignItems="center">
           {/* Phone CTA */}
