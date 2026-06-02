@@ -7,7 +7,7 @@ import { subjects } from '../../data/subjects';
 
 export default function ServicesSection() {
   return (
-    <Box component="section" sx={{ bgcolor: '#F8F6F2', py: 10 }}>
+    <Box id="services" component="section" sx={{ bgcolor: '#F8F6F2', py: 10, scrollMarginTop: '64px' }}>
       <Container maxWidth="lg">
         <Box sx={{ textAlign: 'center', mb: 6 }}>
           <Typography variant="h3" gutterBottom>
